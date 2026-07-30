@@ -19,7 +19,7 @@
 <meta name="twitter:description" content="Three agents debate, sign the result with Ed25519, anyone can verify — forever." />
 <meta name="twitter:image" content="https://jordannewell.github.io/claudeway-site/assets/og.png" />
 
-<!-- Favicon: canonical NEWELL N mark -->
+<link rel="canonical" href="https://jordannewell.github.io/claudeway-site/" />
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 990 755'><rect width='100%25' height='100%25' fill='%230A0A0A'/><g><path d='M 90 55 L 89 55 L 90 56 L 90 755 L 200 755 L 200 166 L 90 56 Z' fill='%23FFFFFF'/><path d='M 789 755 L 790 755 L 790 644 L 201 55 L 200 55 L 200 166 Z' fill='%23FFFFFF'/><path d='M 900 55 L 790 55 L 790 644 L 900 754 L 900 755 L 901 755 L 900 754 Z' fill='%23FFFFFF'/></g></svg>" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1224,6 +1224,72 @@
     .compare-row { grid-template-columns: 120px 1fr 1fr; }
     .compare-row > div { padding: var(--space-3); font-size: 13px; }
     .section-head h2 { font-size: 30px; }
+
+    /* Mobile nav: keep brand + primary CTA only */
+    .nav-cta .version-chip,
+    .nav-cta .btn-ghost { display: none; }
+    .nav-inner { padding: var(--space-3) var(--space-5); gap: var(--space-3); }
+
+    /* Stats strip: wrap to multiple rows */
+    .strip-inner {
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      gap: var(--space-3) var(--space-5);
+    }
+    .strip-inner .stat { font-size: 11px; }
+
+    /* Architecture diagram: stack the columns vertically */
+    .arch-layer {
+      grid-template-columns: 1fr;
+      gap: var(--space-2);
+    }
+    .arch-layer .layer-mods { text-align: left; }
+
+    /* Verifier grid: stack */
+    .verifier-grid { grid-template-columns: 1fr; }
+    .verifier-input-col { border-right: 0; border-bottom: 1px solid var(--border); }
+
+    /* Use case cards: single column */
+    .use-cases { grid-template-columns: 1fr; }
+
+    /* Tradeoffs / security: single column */
+    .tradeoff-grid,
+    .security-grid { grid-template-columns: 1fr; }
+
+    /* DIY counter: single column list */
+    .diy-counter ul { grid-template-columns: 1fr; }
+
+    /* Longevity grid: single column */
+    .longevity-grid { grid-template-columns: 1fr; }
+
+    /* Built-for grid: was 2-col, force 1-col on mobile */
+    .features.cols-2 { grid-template-columns: 1fr; }
+
+    /* Ensemble cards already stack; tighten padding */
+    .ensemble-grid { gap: var(--space-4); }
+    .ensemble-card { padding: var(--space-5); }
+
+    /* Footer */
+    .footer-inner { flex-direction: column; align-items: flex-start; gap: var(--space-4); }
+  }
+
+  /* Phone-sized: even tighter */
+  @media (max-width: 480px) {
+    section.hero { padding: var(--space-7) var(--space-4); }
+    .hero-left h1 { font-size: 36px; }
+    .section-head h2 { font-size: 24px; }
+    .section-head p { font-size: 15px; }
+    .nav-inner { padding: var(--space-2) var(--space-4); }
+    .brand .wordmark { font-size: 13px; }
+    .nav-cta .btn { padding: 7px 12px; font-size: 12px; }
+    main.content,
+    section.block { padding-left: var(--space-4); padding-right: var(--space-4); }
+    .feature,
+    .use-case,
+    .longevity-card,
+    .ensemble-card,
+    .diy-counter { padding: var(--space-5); }
+    .code-card pre { font-size: 11.5px; padding: var(--space-4); }
   }
 </style>
 </head>
