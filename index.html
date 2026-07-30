@@ -2106,20 +2106,31 @@ builder.<span class="fn">add_edge</span>(<span class="str">"research"</span>, <s
     try {
       // 1. Race fetch the event (same function the verifier uses)
       const evt = await fetchEventFromNostr();
+
+      // 2. IMMEDIATELY pre-populate the verifier textarea so visitor can
+      //    click Verify without waiting on the relay probe below.
+      if (inputEl && !inputEl.value) {
+        inputEl.value = JSON.stringify(evt, null, 2);
+        if (statusEl) {
+          statusEl.textContent = 'Live event pre-loaded · click Verify signature →';
+          statusEl.style.color = 'var(--primary)';
+        }
+      }
+
+      // 3. Populate the static-looking wire display fields with live data.
       setWireField('wire-event-id', fmtBytes(evt.id, 32));
       setWireField('wire-kind', `${evt.kind} (NIP-78 addressable)`);
       setWireField('wire-pubkey', fmtBytes(evt.pubkey, 32));
       const dt = new Date(evt.created_at * 1000);
       setWireField('wire-created-at', dt.toISOString().replace('.000', ''));
 
-      // 2. Parse the content (ConsensusReceipt JSON inside)
+      // 4. Parse the content (ConsensusReceipt JSON inside)
       let receipt = null;
       try { receipt = JSON.parse(evt.content); } catch {}
       if (receipt) {
         setWireField('wire-content-summary', `ConsensusReceipt (${(evt.content || '').length} chars JSON)`);
         setWireField('wire-algorithm', receipt.algorithm || '—');
         setWireField('wire-payload-hash', fmtBytes(receipt.payload_hash, 32));
-        // The killer_demo schema nests inside receipt.payload.result
         const r2 = receipt.payload && receipt.payload.result ? receipt.payload.result : receipt.result;
         if (r2) {
           setWireField('wire-agent-count', r2.agent_count !== undefined ? String(r2.agent_count) : '—');
@@ -2130,22 +2141,13 @@ builder.<span class="fn">add_edge</span>(<span class="str">"research"</span>, <s
         setWireField('wire-content-summary', `${(evt.content || '').length} chars (not JSON)`);
       }
 
-      // 3. Probe all 4 relays (non-racing) to show live availability
+      // 5. Probe all 4 relays (non-racing) to show live availability.
+      //    This is display-only — runs AFTER all critical state is set.
       setVerifyStatus('probing relays…', '');
       const results = await probeRelays(REAL_EVENT_ID);
       setRelaysStatus(results);
       const okCount = results.filter(r => r.ok).length;
-      setVerifyStatus(`live · ${okCount}/${results.length} relays hold this event · event verified by relay acceptance (BIP-340 sig check passed before storage)`, 'ok');
-
-      // 4. Pre-populate the verifier textarea so the visitor can click Verify
-      //    without needing the Fetch button. They still have to click Verify.
-      if (inputEl && !inputEl.value) {
-        inputEl.value = JSON.stringify(evt, null, 2);
-        if (statusEl) {
-          statusEl.textContent = 'Live event pre-loaded · click Verify signature →';
-          statusEl.style.color = 'var(--primary)';
-        }
-      }
+      setVerifyStatus(`live · ${okCount}/${results.length} relays hold this event · BIP-340 verified by relay acceptance`, 'ok');
     } catch (e) {
       setVerifyStatus('fetch failed — paste event JSON into the verifier below', '');
       const el = document.getElementById('wire-event-id');
