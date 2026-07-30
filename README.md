@@ -46,3 +46,10 @@ NEWELL Brand System. Canonical source: `e:/vaults/anything.xyz/50_Projects/brand
 ## License
 
 MIT — same as the Claudeway SDK.
+
+
+<p align="right">
+  <a href="https://jordannewell.com" title="Built by Jordan Newell">
+    <img src="assets/newell-badge.png" alt="Built by Jordan Newell" width="48" height="48">
+  </a>
+</p>
