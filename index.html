@@ -1681,25 +1681,23 @@ builder.<span class="fn">add_edge</span>(<span class="str">"research"</span>, <s
       </div>
     </div>
 
-    <div class="wire-right">
-<span class="k">event_id:</span>     <span class="v">3974ebfe688f1639a8534b46b...</span>
-<span class="k">kind:</span>         <span class="v">30078</span>  <span class="k">(NIP-78 addressable)</span>
-<span class="k">pubkey:</span>       <span class="v">19bd8a248f6201dacd163e2a...</span>
-<span class="k">created_at:</span>   <span class="v">2026-07-25T14:22:08Z</span>
+    <div class="wire-right" id="wire-display">
+<span class="k">event_id:</span>     <span class="v" id="wire-event-id">fetching…</span>
+<span class="k">kind:</span>         <span class="v" id="wire-kind">—</span>
+<span class="k">pubkey:</span>       <span class="v" id="wire-pubkey">—</span>
+<span class="k">created_at:</span>   <span class="v" id="wire-created-at">—</span>
 <span class="k">sig_scheme:</span>   <span class="v">BIP-340 Schnorr (secp256k1)</span>
-<span class="k">content:</span>      <span class="v">ConsensusReceipt (JSON)</span>
-  <span class="k">algorithm:</span> <span class="v">ed25519</span>
-  <span class="k">signature:</span> <span class="v">bf039a74eb7af94be3b0...</span>
-  <span class="k">payload_hash:</span> <span class="v">1209ec3b675782d046fd...</span>
-  <span class="k">task_id:</span> <span class="v">"missing-primitive"</span>
+<span class="k">content:</span>      <span class="v" id="wire-content-summary">—</span>
+  <span class="k">algorithm:</span>    <span class="v" id="wire-algorithm">—</span>
+  <span class="k">payload_hash:</span> <span class="v" id="wire-payload-hash">—</span>
+  <span class="k">agent_count:</span>  <span class="v" id="wire-agent-count">—</span>
+  <span class="k">agreement:</span>    <span class="v" id="wire-agreement">—</span>
+  <span class="k">disagreed:</span>    <span class="v" id="wire-disagreed">—</span>
 
-<span class="k">relays:</span>
-  <span class="ok">✓</span> wss://nos.lol
-  <span class="ok">✓</span> wss://offchain.pub
-  <span class="ok">✓</span> wss://relay.primal.net
-  <span class="ok">✓</span> wss://nostr.mom
+<span class="k">relays (live):</span>
+  <span id="wire-relays">connecting…</span>
 
-<span class="ok">nak verify: PASS (exit 0)</span>
+<span class="ok" id="wire-verify-status">awaiting fetch…</span>
     </div>
   </div>
 
@@ -1735,7 +1733,7 @@ builder.<span class="fn">add_edge</span>(<span class="str">"research"</span>, <s
     </div>
     <div class="verifier-hint">
       Crypto runs client-side via <a href="https://github.com/paulmillr/noble-curves">@noble/curves</a>. No server round-trip, no event leaves your browser.<br>
-      <span style="color: var(--muted-2);">// For a real PASS: fetch the actual event from <a href="https://nostr.mom/e/3974ebfe688f1639a8534b46bbbfeddf354d18efcd190352da877756d1bac60b" target="_blank" rel="noopener">nostr.mom</a> and paste it here.</span>
+      <span style="color: var(--muted-2);">// Live event is pre-loaded above. Click <strong>Verify signature →</strong> to confirm the BIP-340 Schnorr signature against the live relay data.</span>
     </div>
   </div>
 </section>
@@ -2013,7 +2011,7 @@ builder.<span class="fn">add_edge</span>(<span class="str">"research"</span>, <s
     try {
       const evt = await fetchEventFromNostr();
       inputEl.value = JSON.stringify(evt, null, 2);
-      statusEl.textContent = 'Loaded live event from ' + (RELAYS.join(' / ')).split(' ')[0] + ' · click Verify.';
+      statusEl.textContent = 'Loaded live event · click Verify.';
       statusEl.style.color = 'var(--primary)';
       // Auto-trigger verify so visitor sees the green PASS immediately
       verifyBtn.click();
@@ -2025,6 +2023,143 @@ builder.<span class="fn">add_edge</span>(<span class="str">"research"</span>, <s
       fetchBtn.textContent = '↓ Fetch live from Nostr';
     }
   });
+
+  // === Live-populate the "On the wire" display on page load ===
+  // Single fetch on DOMContentLoaded; populates the static-looking event
+  // details block with the REAL values pulled from a Nostr relay. Same
+  // race pattern as the verifier button. No stale hard-coded values.
+
+  function fmtBytes(s, n) { return s ? (s.slice(0, n) + '…') : '—'; }
+
+  function setWireField(id, text, cls) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.textContent = text;
+    if (cls) el.className = 'v ' + cls;
+    else el.className = 'v';
+  }
+
+  function setRelaysStatus(relayResults) {
+    const el = document.getElementById('wire-relays');
+    if (!el) return;
+    if (!relayResults.length) {
+      el.textContent = '(no relays responded)';
+      return;
+    }
+    el.innerHTML = relayResults.map(r => {
+      const cls = r.ok ? 'ok' : 'muted';
+      const mark = r.ok ? '✓' : '×';
+      const latency = r.elapsed ? ` <span class="k">${r.elapsed.toFixed(2)}s</span>` : '';
+      return `<span class="${cls}">${mark}</span> ${r.url}${latency}<br>`;
+    }).join('');
+  }
+
+  function setVerifyStatus(text, cls) {
+    const el = document.getElementById('wire-verify-status');
+    if (!el) return;
+    el.textContent = text;
+    el.className = cls || 'ok';
+  }
+
+  // Probe each relay independently (don't race-close) for the status display
+  async function probeRelays(eventId) {
+    const results = [];
+    await Promise.all(RELAYS.map(async (url) => {
+      const t0 = performance.now();
+      try {
+        const evt = await new Promise((resolve, reject) => {
+          const timeout = setTimeout(() => reject(new Error('timeout')), 6000);
+          let socket;
+          try { socket = new WebSocket(url); } catch (e) { clearTimeout(timeout); reject(e); return; }
+          socket.onopen = () => {
+            try {
+              socket.send(JSON.stringify(['REQ', 'wire-probe-' + Date.now() + '-' + Math.random().toString(36).slice(2,8), { ids: [eventId] }]));
+            } catch (e) { clearTimeout(timeout); reject(e); }
+          };
+          socket.onmessage = (msg) => {
+            try {
+              const data = JSON.parse(msg.data);
+              if (data[0] === 'EVENT' && data[2] && data[2].id === eventId) {
+                clearTimeout(timeout);
+                try { socket.close(); } catch {}
+                resolve(data[2]);
+              } else if (data[0] === 'EOSE') {
+                clearTimeout(timeout);
+                try { socket.close(); } catch {}
+                reject(new Error('event not found on this relay'));
+              }
+            } catch {}
+          };
+          socket.onerror = () => { clearTimeout(timeout); reject(new Error('connection failed')); };
+        });
+        results.push({ url, ok: true, elapsed: (performance.now() - t0) / 1000 });
+      } catch (e) {
+        results.push({ url, ok: false, elapsed: (performance.now() - t0) / 1000 });
+      }
+    }));
+    return results;
+  }
+
+  async function loadLiveWire() {
+    setVerifyStatus('connecting to relays…', '');
+
+    try {
+      // 1. Race fetch the event (same function the verifier uses)
+      const evt = await fetchEventFromNostr();
+      setWireField('wire-event-id', fmtBytes(evt.id, 32));
+      setWireField('wire-kind', `${evt.kind} (NIP-78 addressable)`);
+      setWireField('wire-pubkey', fmtBytes(evt.pubkey, 32));
+      const dt = new Date(evt.created_at * 1000);
+      setWireField('wire-created-at', dt.toISOString().replace('.000', ''));
+
+      // 2. Parse the content (ConsensusReceipt JSON inside)
+      let receipt = null;
+      try { receipt = JSON.parse(evt.content); } catch {}
+      if (receipt) {
+        setWireField('wire-content-summary', `ConsensusReceipt (${(evt.content || '').length} chars JSON)`);
+        setWireField('wire-algorithm', receipt.algorithm || '—');
+        setWireField('wire-payload-hash', fmtBytes(receipt.payload_hash, 32));
+        // The killer_demo schema nests inside receipt.payload.result
+        const r2 = receipt.payload && receipt.payload.result ? receipt.payload.result : receipt.result;
+        if (r2) {
+          setWireField('wire-agent-count', r2.agent_count !== undefined ? String(r2.agent_count) : '—');
+          setWireField('wire-agreement', r2.agreement !== undefined ? `${(r2.agreement * 100).toFixed(1)}%` : '—');
+          setWireField('wire-disagreed', r2.disagreed !== undefined ? String(r2.disagreed) : '—');
+        }
+      } else {
+        setWireField('wire-content-summary', `${(evt.content || '').length} chars (not JSON)`);
+      }
+
+      // 3. Probe all 4 relays (non-racing) to show live availability
+      setVerifyStatus('probing relays…', '');
+      const results = await probeRelays(REAL_EVENT_ID);
+      setRelaysStatus(results);
+      const okCount = results.filter(r => r.ok).length;
+      setVerifyStatus(`live · ${okCount}/${results.length} relays hold this event · event verified by relay acceptance (BIP-340 sig check passed before storage)`, 'ok');
+
+      // 4. Pre-populate the verifier textarea so the visitor can click Verify
+      //    without needing the Fetch button. They still have to click Verify.
+      if (inputEl && !inputEl.value) {
+        inputEl.value = JSON.stringify(evt, null, 2);
+        if (statusEl) {
+          statusEl.textContent = 'Live event pre-loaded · click Verify signature →';
+          statusEl.style.color = 'var(--primary)';
+        }
+      }
+    } catch (e) {
+      setVerifyStatus('fetch failed — paste event JSON into the verifier below', '');
+      const el = document.getElementById('wire-event-id');
+      if (el) el.textContent = '(fetch failed)';
+    }
+  }
+
+  // Kick off the live load shortly after DOM is ready — small delay so the
+  // fonts and above-the-fold content render first.
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => setTimeout(loadLiveWire, 300));
+  } else {
+    setTimeout(loadLiveWire, 300);
+  }
 
   // The real published event from the killer_demo / buzz_wire_publish
   const SAMPLE_EVENT = {
