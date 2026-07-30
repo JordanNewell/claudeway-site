@@ -1265,8 +1265,11 @@
     /* Built-for grid: was 2-col, force 1-col on mobile */
     .features.cols-2 { grid-template-columns: 1fr; }
 
-    /* Ensemble cards already stack; tighten padding */
-    .ensemble-grid { gap: var(--space-4); }
+    /* Ensemble cards: collapse to single column on mobile */
+    .ensemble-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
     .ensemble-card { padding: var(--space-5); }
 
     /* Footer */
