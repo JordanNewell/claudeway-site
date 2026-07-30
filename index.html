@@ -1246,9 +1246,9 @@
     <ul class="nav-links">
       <li><a href="#features">Features</a></li>
       <li><a href="#architecture">Architecture</a></li>
-      <li><a href="#built-for">Built for</a></li>
-      <li><a href="#when">When to use</a></li>
-      <li><a href="#not-ensemble">vs ensembles</a></li>
+      <li><a href="#built-for">Who</a></li>
+      <li><a href="#when">Uses</a></li>
+      <li><a href="#not-ensemble">Different</a></li>
       <li><a href="#tradeoffs">Tradeoffs</a></li>
       <li><a href="#security">Security</a></li>
       <li><a href="#longevity">Longevity</a></li>
@@ -1717,7 +1717,8 @@ builder.<span class="fn">add_edge</span>(<span class="str">"research"</span>, <s
 }'></textarea>
         <div class="verifier-actions">
           <button class="btn btn-primary" id="verifier-verify">Verify signature →</button>
-          <button class="btn btn-ghost" id="verifier-load-sample">Load sample (synthetic — watch the verifier catch it)</button>
+          <button class="btn btn-ghost" id="verifier-fetch-live">↓ Fetch live from Nostr</button>
+          <button class="btn btn-ghost" id="verifier-load-sample">Load synthetic (will fail)</button>
           <span class="verifier-status" id="verifier-status"></span>
         </div>
       </div>
@@ -1944,9 +1945,86 @@ builder.<span class="fn">add_edge</span>(<span class="str">"research"</span>, <s
   const inputEl = document.getElementById('verifier-input');
   const verifyBtn = document.getElementById('verifier-verify');
   const sampleBtn = document.getElementById('verifier-load-sample');
+  const fetchBtn = document.getElementById('verifier-fetch-live');
   const statusEl = document.getElementById('verifier-status');
   const resultEl = document.getElementById('verifier-result');
   const fieldsEl = document.getElementById('verifier-fields');
+
+  // The real published Claudeway consensus event (kind 30078, BIP-340 signed)
+  const REAL_EVENT_ID = '3974ebfe688f1639a8534b46bbbfeddf354d18efcd190352da877756d1bac60b';
+  const RELAYS = ['wss://nos.lol', 'wss://relay.primal.net', 'wss://nostr.mom', 'wss://offchain.pub'];
+
+  // Race N relays in parallel — first to return the event wins. Closes all others.
+  async function fetchEventFromNostr() {
+    return new Promise((resolve, reject) => {
+      const timeout = setTimeout(() => {
+        sockets.forEach(s => { try { s.close(); } catch {} });
+        reject(new Error('All relays timed out after 8s'));
+      }, 8000);
+
+      const sockets = [];
+      let resolved = false;
+
+      RELAYS.forEach(relayUrl => {
+        let socket;
+        try {
+          socket = new WebSocket(relayUrl);
+        } catch (e) {
+          return;
+        }
+        sockets.push(socket);
+
+        socket.onopen = () => {
+          const req = ['REQ', 'claudeway-verify-' + Date.now(), { ids: [REAL_EVENT_ID] }];
+          try { socket.send(JSON.stringify(req)); } catch {}
+        };
+
+        socket.onmessage = (msg) => {
+          try {
+            const data = JSON.parse(msg.data);
+            if (data[0] === 'EVENT' && data[2] && data[2].id === REAL_EVENT_ID) {
+              if (resolved) return;
+              resolved = true;
+              clearTimeout(timeout);
+              sockets.forEach(s => { try { s.close(); } catch {} });
+              resolve(data[2]);
+            }
+          } catch {}
+        };
+
+        socket.onerror = () => {
+          // Silent — other relays may still succeed
+        };
+      });
+
+      if (sockets.length === 0) {
+        clearTimeout(timeout);
+        reject(new Error('No relays available (WebSocket blocked?)'));
+      }
+    });
+  }
+
+  fetchBtn.addEventListener('click', async () => {
+    fetchBtn.disabled = true;
+    fetchBtn.textContent = 'Fetching…';
+    statusEl.textContent = 'Connecting to Nostr relays (racing 4)…';
+    statusEl.style.color = 'var(--muted-2)';
+
+    try {
+      const evt = await fetchEventFromNostr();
+      inputEl.value = JSON.stringify(evt, null, 2);
+      statusEl.textContent = 'Loaded live event from ' + (RELAYS.join(' / ')).split(' ')[0] + ' · click Verify.';
+      statusEl.style.color = 'var(--primary)';
+      // Auto-trigger verify so visitor sees the green PASS immediately
+      verifyBtn.click();
+    } catch (e) {
+      statusEl.textContent = 'Fetch failed: ' + e.message + ' — paste event JSON manually.';
+      statusEl.style.color = '#FFB74D';
+    } finally {
+      fetchBtn.disabled = false;
+      fetchBtn.textContent = '↓ Fetch live from Nostr';
+    }
+  });
 
   // The real published event from the killer_demo / buzz_wire_publish
   const SAMPLE_EVENT = {
