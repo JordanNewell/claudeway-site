@@ -45,7 +45,7 @@ NEWELL Brand System. Canonical source: `e:/vaults/anything.xyz/50_Projects/brand
 
 ## License
 
-MIT — same as the Claudeway SDK.
+BUSL-1.1 — same as the Claudeway SDK. Source-available; converts to MIT on 2030-10-12. See [LICENSE](LICENSE).
 
 
 <p align="right">
