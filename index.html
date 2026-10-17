@@ -28,6 +28,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>try { if (localStorage.getItem('tractum-theme') === 'light') document.documentElement.classList.add('light'); } catch {}</script>
 <style>
   :root {
     --bg:       #0A0A0A;
@@ -57,6 +58,16 @@
     --space-10: 128px;
     --max-w: 1200px;
   }
+  :root.light {
+    --bg:       #F7F6F2;
+    --surface:  #FFFFFF;
+    --surface-2:#F1EFEA;
+    --border:   #E3E1DB;
+    --border-2: #D5D3CC;
+    --text:     #141414;
+    --muted:    #686D76;
+    --muted-2:  #9A9A9A;
+  }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body {
@@ -73,69 +84,68 @@
   a:hover { color: var(--accent); }
   ::selection { background: var(--primary); color: var(--bg); }
 
-  /* ============================ NAV ============================ */
-  nav.top {
-    position: sticky;
-    top: 0;
+  /* ======================= CORNER NAV ======================= */
+  .corner-nav {
+    position: absolute;
+    top: 40px;
+    right: clamp(1.5rem, 3.2vw, 3.5rem);
     z-index: 100;
-    background: rgba(10, 10, 10, 0.85);
-    backdrop-filter: none;
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-inner {
-    max-width: var(--max-w);
-    margin: 0 auto;
-    padding: var(--space-4) var(--space-6);
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: var(--space-6);
-    height: 64px;
+    gap: 0.55rem;
+    margin-top: 1.4rem;
   }
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    margin-right: auto;
+  .corner-mark {
+    display: block;
+    text-decoration: none;
+    margin-bottom: 0.55rem;
   }
-  .brand .n-mark { width: 24px; height: 24px; display: block; }
-  .brand .wordmark {
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: 700;
-    font-size: 15px;
-    letter-spacing: 0.10em;
-    text-transform: uppercase;
+  .corner-mark { color: var(--text); }
+  .corner-mark svg { width: 76px; height: auto; display: block; }
+  .bubble {
+    display: inline-block;
+    border: 1px solid var(--border);
+    border-radius: 9999px;
+    padding: 0.28rem 0.85rem;
+    font-size: 0.75rem;
     color: var(--text);
+    text-decoration: none;
   }
-  .brand .wordmark .dot { color: var(--primary); }
-  .nav-links {
-    display: flex;
-    align-items: center;
-    gap: var(--space-4);
-    list-style: none;
-  }
-  .nav-links a {
+  .bubble:hover { border-color: var(--primary); color: var(--primary); }
+  .corner-socials { display: flex; gap: 0.45rem; margin-top: 0.35rem; }
+  .circ {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--border);
+    border-radius: 9999px;
     color: var(--muted);
-    font-size: 14px;
-    font-weight: 500;
-    white-space: nowrap;
-    transition: color 120ms ease;
+    font-size: 0.78rem;
+    text-decoration: none;
   }
-  .nav-links a:hover { color: var(--text); }
-  .nav-cta {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
+  a.circ:hover { color: var(--primary); border-color: var(--primary); }
+  .circ svg { width: 12px; height: 12px; }
+  .theme-toggle {
+    position: absolute;
+    top: 40px;
+    left: clamp(1.5rem, 3.2vw, 3.5rem);
+    z-index: 100;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
   }
-  .nav-cta .btn { white-space: nowrap; }
-  .version-chip {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--primary);
-    border: 1px solid var(--border-2);
-    border-radius: var(--r-sm);
-    padding: 3px 8px;
-    background: var(--surface);
-  }
+  .theme-toggle:hover { color: var(--primary); border-color: var(--primary); }
+  .theme-toggle svg { width: 20px; height: 20px; }
+  .theme-toggle .sun, :root.light .theme-toggle .moon { display: none; }
+  :root.light .theme-toggle .sun { display: block; }
   .btn {
     display: inline-flex;
     align-items: center;
@@ -174,9 +184,9 @@
   section.hero {
     max-width: var(--max-w);
     margin: 0 auto;
-    padding: var(--space-10) var(--space-6) var(--space-9);
+    padding: clamp(9rem, 24vh, 13.5rem) var(--space-6) var(--space-9);
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: var(--space-8);
     align-items: center;
   }
@@ -254,47 +264,6 @@
   }
   .hero-receipt .hash { color: var(--accent); }
 
-  /* Hero right — code preview card */
-  /* Hero right — the quorum mark, full size */
-  .hero-right {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-6);
-  }
-  .hero-mark {
-    position: relative;
-    width: 100%;
-    max-width: 400px;
-    height: 360px;
-    display: flex;
-    align-items: flex-end;
-    gap: var(--space-5);
-    padding-bottom: 24px; /* bars sit on the agreement line */
-  }
-  .hero-mark .hbar {
-    flex: 1;
-    border-radius: 28px;
-  }
-  .hero-mark .hbar.q { height: 100%; background: var(--primary); }
-  .hero-mark .hbar.nq { height: 58%; background: var(--non-quorum, #3D3D3D); }
-  .hero-mark .agreement {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 24px;
-    border-radius: 12px;
-    background: var(--text);
-  }
-  .hero-mark-caption {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.10em;
-    text-transform: uppercase;
-    color: var(--muted-2);
-  }
-  .hero-mark-caption b { color: var(--primary); font-weight: 600; }
   .code-solo {
     max-width: 760px;
     margin: 0 auto;
@@ -618,39 +587,21 @@
   }
 
   /* ============================ FOOTER ============================ */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: var(--space-7) var(--space-6) var(--space-5);
-  }
-  .footer-inner {
-    max-width: var(--max-w);
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: var(--space-6);
-  }
-  .footer-brand {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-  }
-  .footer-brand .n-mark { width: 20px; height: 20px; }
-  .footer-brand .text {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--muted-2);
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-  }
-  .footer-meta {
+  body { min-height: 100svh; display: flex; flex-direction: column; }
+  footer { margin-top: auto; padding: 96px 24px 40px; }
+  .foot-meta {
+    text-align: center;
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
     color: var(--muted-2);
     text-transform: uppercase;
     letter-spacing: 0.10em;
+    margin-bottom: var(--space-5);
   }
-  .footer-meta a { color: var(--muted); margin-left: var(--space-4); }
+  .foot-meta .sep { color: var(--border-2); margin: 0 10px; }
+  .foot-icons { display: flex; justify-content: center; }
+  .newell-logo { display: block; height: 28px; width: auto; opacity: 0.9; }
+  @media (max-width: 640px) { .newell-logo { height: 24px; } }
 
   /* ============================ USE CASE CARDS ============================ */
   .use-cases {
@@ -1265,26 +1216,21 @@
 
   /* ============================ RESPONSIVE ============================ */
   @media (max-width: 900px) {
-    section.hero { grid-template-columns: 1fr; padding: var(--space-8) var(--space-5); }
-    .hero-mark { max-width: 320px; height: 280px; gap: var(--space-4); }
-    .hero-mark .hbar { border-radius: 22px; }
-    .hero-mark .agreement { height: 18px; border-radius: 9px; }
-    .hero-mark + .hero-mark-caption, .hero-right .hero-mark-caption { font-size: 11px; }
+    section.hero { grid-template-columns: 1fr; padding: 13.5rem var(--space-5) var(--space-8); }
     .code-solo { margin: 0 var(--space-2); }
     .hero-left h1 { font-size: 30px; }
     .features { grid-template-columns: repeat(2, 1fr); }
     .wire { grid-template-columns: 1fr; }
     .cta-inner { grid-template-columns: 1fr; }
     .cta-inner h2 { font-size: 28px; }
-    .nav-links { display: none; }
+    .corner-nav { top: 1.5rem; right: 1.5rem; margin-top: 0; }
+    .corner-mark svg { width: 48px; height: auto; }
+    .theme-toggle { top: 1.5rem; left: 1.5rem; }
     .compare-row { grid-template-columns: 120px 1fr 1fr; }
     .compare-row > div { padding: var(--space-3); font-size: 13px; }
     .section-head h2 { font-size: 30px; }
 
-    /* Mobile nav: keep brand + primary CTA only */
-    .nav-cta .version-chip,
-    .nav-cta .btn-ghost { display: none; }
-    .nav-inner { padding: var(--space-3) var(--space-5); gap: var(--space-3); }
+    /* Mobile corner nav */
 
     /* Stats strip: wrap to multiple rows */
     .strip-inner {
@@ -1335,18 +1281,14 @@
     #verifier-load-sample { display: none; }
 
     /* Footer */
-    .footer-inner { flex-direction: column; align-items: flex-start; gap: var(--space-4); }
   }
 
   /* Phone-sized: even tighter */
   @media (max-width: 480px) {
-    section.hero { padding: var(--space-7) var(--space-4); }
+    section.hero { padding: 13.5rem var(--space-4) var(--space-7); }
     .hero-left h1 { font-size: 26px; }
     .section-head h2 { font-size: 24px; }
     .section-head p { font-size: 15px; }
-    .nav-inner { padding: var(--space-2) var(--space-4); }
-    .brand .wordmark { font-size: 13px; }
-    .nav-cta .btn { padding: 7px 12px; font-size: 12px; }
     main.content,
     section.block { padding-left: var(--space-4); padding-right: var(--space-4); }
     .feature,
@@ -1360,28 +1302,34 @@
 </head>
 <body>
 
-<!-- ============================ NAV ============================ -->
-<nav class="top">
-  <div class="nav-inner">
-    <a class="brand" href="#">
-      <img src="assets/tractum-lockup.svg" alt="tractum" style="height:26px;width:auto;display:block">
+<!-- ======================= THEME TOGGLE ======================= -->
+<button class="theme-toggle" type="button" aria-label="toggle day/night theme">
+  <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+
+<!-- ======================= CORNER NAV ======================= -->
+<nav class="corner-nav" aria-label="site">
+  <a class="corner-mark" href="#" aria-label="Tractum">
+    <svg viewBox="0 0 264 240" width="76" height="69" role="img" aria-label="Tractum quorum mark">
+      <rect x="24" y="84" width="24" height="108" rx="12" fill="#3D3D3D"/>
+      <rect x="72" y="24" width="24" height="168" rx="12" fill="#FFB000"/>
+      <rect x="120" y="24" width="24" height="168" rx="12" fill="#FFB000"/>
+      <rect x="168" y="24" width="24" height="168" rx="12" fill="#FFB000"/>
+      <rect x="216" y="84" width="24" height="108" rx="12" fill="#3D3D3D"/>
+      <rect x="24" y="192" width="216" height="24" rx="12" fill="currentColor"/>
+    </svg>
+  </a>
+  <a class="bubble" href="https://jordannewell.github.io/tractum/">docs</a>
+  <a class="bubble" href="https://github.com/JordanNewell/tractum">github</a>
+  <div class="corner-socials">
+    <a class="circ" href="https://x.com/tractumdev" aria-label="Tractum on X" title="@tractumdev">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
     </a>
-    <ul class="nav-links">
-      <li><a href="#features">Features</a></li>
-      <li><a href="#architecture">Architecture</a></li>
-      <li><a href="#built-for">Who</a></li>
-      <li><a href="#when">Uses</a></li>
-      <li><a href="#not-ensemble">Different</a></li>
-      <li><a href="#tradeoffs">Tradeoffs</a></li>
-      <li><a href="#security">Security</a></li>
-      <li><a href="#longevity">Longevity</a></li>
-      <li><a href="https://jordannewell.github.io/tractum/">Docs ↗</a></li>
-    </ul>
-    <div class="nav-cta">
-      <span class="version-chip">v0.5.0</span>
-      <a class="btn btn-ghost" href="https://github.com/JordanNewell/tractum">GitHub</a>
-      <a class="btn btn-primary" href="https://jordannewell.github.io/tractum/quickstart/">Get started →</a>
-    </div>
+    <a class="circ" href="https://github.com/JordanNewell/tractum/blob/main/LICENSE" aria-label="license — © 2026 Jordan Newell" title="© 2026 Jordan Newell — BUSL-1.1">©</a>
+    <a class="circ" href="mailto:info@tractum.dev" aria-label="email info@tractum.dev" title="info@tractum.dev">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+    </a>
   </div>
 </nav>
 
@@ -1422,16 +1370,6 @@
       <span class="pulse"></span>
       <span>Live on Nostr · <span class="hash">nostr.mom/e/583be95c…</span> · BIP-340 verified · 5 relays</span>
     </a>
-  </div>
-
-  <div class="hero-right">
-    <div class="hero-mark" role="img" aria-label="Quorum mark: three of five agents in agreement, joined by a signed agreement line">
-      <span class="hbar nq"></span><span class="hbar q"></span><span class="hbar q"></span><span class="hbar q"></span><span class="hbar nq"></span>
-      <div class="agreement"></div>
-    </div>
-    <div class="hero-mark-caption">
-      n = 5 agents · <b>k = 3 quorum</b> · one signed agreement
-    </div>
   </div>
 </section>
 
@@ -2423,34 +2361,15 @@ builder.<span class="fn">add_edge</span>(<span class="str">"research"</span>, <s
   }
 </script>
 
-<footer class="newell-site-footer">
-  <div class="nsf-inner">
-    <div class="nsf-brand">
-      <svg class="nsf-mark" viewBox="0 0 48 48" width="28" height="28" aria-hidden="true">
-        <rect x="2" y="2" width="44" height="44" rx="6" fill="#0A0A0A" stroke="#FFB000" stroke-width="1.5"/>
-        <rect x="6" y="6" width="36" height="36" rx="3" fill="#0A0A0A" stroke="#1F1F1F" stroke-width="0.5"/>
-        <path d="M 14 14 L 14 34 L 17 34 L 17 19 L 14 16 Z" fill="#FFFFFF"/>
-        <path d="M 31 34 L 31 31 L 17 14 L 14 14 L 14 17 L 28 34 Z" fill="#FFFFFF"/>
-        <path d="M 34 14 L 31 14 L 31 31 L 34 28 L 34 14 Z" fill="#FFFFFF"/>
-      </svg>
-      <div class="nsf-brand-text">
-        <a href="https://jordannewell.com" class="nsf-brand-link">A NEWELL project</a>
-        <span class="nsf-sep">·</span>
-        <span class="nsf-product">tractum</span>
-      </div>
-    </div>
-    <div class="nsf-row nsf-links"><a href="https://github.com/JordanNewell/tractum">github</a> <span class="nsf-sep">·</span> <a href="https://pypi.org/project/tractum/">pypi</a> <span class="nsf-sep">·</span> <a href="https://github.com/JordanNewell/tractum#readme">readme</a> <span class="nsf-sep">·</span> <a href="https://github.com/JordanNewell/tractum/blob/main/CHANGELOG.md">changelog</a> <span class="nsf-sep">·</span> <a href="https://github.com/JordanNewell/tractum/security/policy">security</a></div>
-    <div class="nsf-row nsf-meta"><span>BUSL-1.1</span> <span class="nsf-sep">·</span> <span>v0.5.0</span> <span class="nsf-sep">·</span> <span>Python 3.10+</span> <span class="nsf-sep">·</span> <span>Ed25519 · NIP-78 · Nostr</span></div>
-    <div class="nsf-row nsf-legal">Tractum is a trademark of Jordan Newell · Pre-release software — verify before production</div>
-    <div class="nsf-row nsf-social">
-      <a href="https://github.com/JordanNewell" aria-label="GitHub" title="GitHub">github</a>
-      <span class="nsf-sep">·</span>
-      <a href="https://github.com/sponsors/JordanNewell" aria-label="Sponsor" title="Sponsor on GitHub">sponsor</a>
-      <span class="nsf-sep">·</span>
-      <a href="https://buymeacoffee.com/jordannewell" aria-label="Buy me a coffee" title="Buy me a coffee">coffee →</a>
-    </div>
+<footer>
+  <div class="foot-meta">
+    <span>© 2026 Jordan Newell</span><span class="sep">·</span><span>BUSL-1.1</span><span class="sep">·</span><a href="https://pypi.org/project/tractum/" style="color:var(--muted)">v0.5.0</a>
+  </div>
+  <div class="foot-icons">
+    <a href="https://jordannewell.com" rel="noopener"><img src="assets/n-logo.png" alt="N" class="newell-logo"></a>
   </div>
 </footer>
+<<<<<<< HEAD
 <style>
 .newell-site-footer { border-top: 1px solid #1F1F1F; background: #0A0A0A; padding: 24px; font-family: "JetBrains Mono", "SF Mono", Menlo, monospace; font-size: 12px; color: #A0A0A0; }
 .nsf-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 8px; }
@@ -2477,5 +2396,13 @@ builder.<span class="fn">add_edge</span>(<span class="str">"research"</span>, <s
 }
 </style>
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "384044fd06844933a0da1996a70eb2a4"}'></script>
+=======
+<script>
+  document.querySelector('.theme-toggle').addEventListener('click', () => {
+    const light = document.documentElement.classList.toggle('light');
+    try { localStorage.setItem('tractum-theme', light ? 'light' : 'dark'); } catch {}
+  });
+</script>
+>>>>>>> 78d659f (redesign: corner-stack nav, theme toggle, tractum-only branding)
 </body>
 </html>
