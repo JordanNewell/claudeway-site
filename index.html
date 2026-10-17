@@ -255,7 +255,51 @@
   .hero-receipt .hash { color: var(--accent); }
 
   /* Hero right — code preview card */
+  /* Hero right — the quorum mark, full size */
   .hero-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-6);
+  }
+  .hero-mark {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    height: 360px;
+    display: flex;
+    align-items: flex-end;
+    gap: var(--space-5);
+    padding-bottom: 24px; /* bars sit on the agreement line */
+  }
+  .hero-mark .hbar {
+    flex: 1;
+    border-radius: 28px;
+  }
+  .hero-mark .hbar.q { height: 100%; background: var(--primary); }
+  .hero-mark .hbar.nq { height: 58%; background: var(--non-quorum, #3D3D3D); }
+  .hero-mark .agreement {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 24px;
+    border-radius: 12px;
+    background: var(--text);
+  }
+  .hero-mark-caption {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--muted-2);
+  }
+  .hero-mark-caption b { color: var(--primary); font-weight: 600; }
+  .code-solo {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .code-card {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--r-lg);
@@ -917,9 +961,10 @@
   }
   .flow-arrow {
     text-align: center;
-    color: var(--muted-2);
+    color: var(--primary);
     font-family: 'JetBrains Mono', monospace;
-    font-size: 14px;
+    font-size: 18px;
+    font-weight: 700;
     margin: var(--space-1) 0;
   }
   .ensemble-card .takeaway {
@@ -1111,14 +1156,15 @@
   .arch-layer + .arch-layer::before {
     content: '↑';
     position: absolute;
-    top: -12px;
+    top: -14px;
     left: 50%;
     transform: translateX(-50%);
-    color: var(--muted-2);
+    color: var(--primary);
     background: var(--surface);
     padding: 0 var(--space-2);
     font-family: 'JetBrains Mono', monospace;
-    font-size: 14px;
+    font-size: 18px;
+    font-weight: 700;
     z-index: 2;
   }
   .arch-layer .layer-name {
@@ -1220,6 +1266,11 @@
   /* ============================ RESPONSIVE ============================ */
   @media (max-width: 900px) {
     section.hero { grid-template-columns: 1fr; padding: var(--space-8) var(--space-5); }
+    .hero-mark { max-width: 320px; height: 280px; gap: var(--space-4); }
+    .hero-mark .hbar { border-radius: 22px; }
+    .hero-mark .agreement { height: 18px; border-radius: 9px; }
+    .hero-mark + .hero-mark-caption, .hero-right .hero-mark-caption { font-size: 11px; }
+    .code-solo { margin: 0 var(--space-2); }
     .hero-left h1 { font-size: 30px; }
     .features { grid-template-columns: repeat(2, 1fr); }
     .wire { grid-template-columns: 1fr; }
@@ -1373,7 +1424,38 @@
     </a>
   </div>
 
-  <div class="hero-right code-card">
+  <div class="hero-right">
+    <div class="hero-mark" role="img" aria-label="Quorum mark: three of five agents in agreement, joined by a signed agreement line">
+      <span class="hbar nq"></span><span class="hbar q"></span><span class="hbar q"></span><span class="hbar q"></span><span class="hbar nq"></span>
+      <div class="agreement"></div>
+    </div>
+    <div class="hero-mark-caption">
+      n = 5 agents · <b>k = 3 quorum</b> · one signed agreement
+    </div>
+  </div>
+</section>
+
+<!-- ============================ STRIP ============================ -->
+<div class="strip">
+  <div class="strip-inner">
+    <div class="stat"><span class="num green">197</span> tests</div>
+    <div class="stat"><span class="num">4</span> base deps</div>
+    <div class="stat"><span class="num">3</span> transports</div>
+    <div class="stat"><span class="num">2</span> signature backends</div>
+    <div class="stat"><span class="num">+7/20</span> blind-judge quality lift</div>
+    <div class="stat"><span class="num green">●</span> live on Nostr</div>
+  </div>
+</div>
+
+<!-- ============================ QUICKSTART ============================ -->
+<section class="block" id="quickstart">
+  <div class="section-head">
+    <div class="section-eyebrow">// Quickstart</div>
+    <h2>Three specialists. Five lines. One receipt.</h2>
+    <p>Define the swarm, hand it a task, get the verdict and the signed disagreement trace in one call.</p>
+  </div>
+
+  <div class="code-card code-solo">
     <div class="bar">
       <div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
       <div class="filename">hello.py</div>
@@ -1404,18 +1486,6 @@ result = <span class="kw">await</span> swarm.<span class="fn">process</span>(<sp
 <span class="fn">print</span>(<span class="str">f"agreement: {result.result['agreement']:.0%}"</span>)</pre>
   </div>
 </section>
-
-<!-- ============================ STRIP ============================ -->
-<div class="strip">
-  <div class="strip-inner">
-    <div class="stat"><span class="num green">197</span> tests</div>
-    <div class="stat"><span class="num">4</span> base deps</div>
-    <div class="stat"><span class="num">3</span> transports</div>
-    <div class="stat"><span class="num">2</span> signature backends</div>
-    <div class="stat"><span class="num">+7/20</span> blind-judge quality lift</div>
-    <div class="stat"><span class="num green">●</span> live on Nostr</div>
-  </div>
-</div>
 
 <!-- ============================ FEATURES ============================ -->
 <section class="block" id="features">
