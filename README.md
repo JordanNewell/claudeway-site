@@ -1,20 +1,21 @@
-# claudeway-site
+# tractum-site
 
-Landing page for [Claudeway](https://github.com/JordanNewell/claudeway) — verifiable multi-agent consensus for Claude.
+Landing page for [Tractum](https://github.com/JordanNewell/tractum) — verifiable multi-agent consensus.
 
-Live at **https://jordannewell.github.io/claudeway-site/**
+Live at **https://tractum.dev/**
 
 ## What's in here
 
 - `index.html` — self-contained landing page. No build step, no framework, no JS bundler. Fonts via Google Fonts CDN, crypto via `@noble/curves` ESM CDN.
-- `assets/og.png` — social card.
-- `assets/favicon.svg` — canonical NEWELL N mark.
+- `assets/og.png` — social card (regenerate from `og.html` with headless Chrome at 1200×630).
+- `assets/tractum-lockup.svg` + `assets/tractum-mark.svg` — canonical marks from the brand kit.
+- `og.html` — source for the social card.
 
 ## Architecture
 
-Hand-rolled HTML/CSS. NEWELL Brand System tokens inlined as CSS custom properties at `:root`. Layout is grid-based (8px spacing). Typography is Space Grotesk (display + body) + JetBrains Mono (code/technical).
+Hand-rolled HTML/CSS. Tractum Brand tokens inlined as CSS custom properties at `:root` (Seal Amber `#FFB000` on `#0A0A0A`). Layout is grid-based (8px spacing). Typography is JetBrains Mono (display) + Space Grotesk (body).
 
-The page is a single `index.html` (~2100 lines including styles). Section anchors in nav are all `#id` references — no client-side router, no SPA.
+The page is a single `index.html` (~2400 lines including styles). Section anchors in nav are all `#id` references — no client-side router, no SPA.
 
 ## Local preview
 
@@ -22,14 +23,7 @@ Open `index.html` in a browser. That's it. No server required for the static con
 
 ## Deploy
 
-GitHub Pages, main branch, root directory. The repo has no build step — push to main, Pages serves it.
-
-To use a custom subdomain (e.g. `claudeway.jordannewell.com`):
-
-1. Add a `CNAME` file containing `claudeway.jordannewell.com`
-2. At your DNS provider, add a CNAME record: `claudeway.jordannewell.com → jordannewell.github.io`
-3. Wait for HTTPS provisioning (~10 minutes)
-4. Update the `og:image` and `og:url` meta tags in `index.html` to the new domain
+Cloudflare Pages, direct upload or git-connected, custom domain `tractum.dev` (zone in CF account).
 
 ## Editing
 
@@ -37,15 +31,15 @@ Just edit `index.html`. Brand tokens live at `:root` at the top of the `<style>`
 
 ## Sibling repos
 
-- **[claudeway](https://github.com/JordanNewell/claudeway)** — the SDK, MCP server, adapters, and full docs at `jordannewell.github.io/claudeway/`. This landing links there for everything beyond the pitch.
+- **[tractum](https://github.com/JordanNewell/tractum)** — the SDK, MCP server, adapters, and full docs at `jordannewell.github.io/tractum/`. This landing links there for everything beyond the pitch.
 
 ## Brand
 
-NEWELL Brand System. Canonical source: `e:/vaults/anything.xyz/50_Projects/brand-system/`. Pre-flight before shipping visual changes.
+Tractum Brand System v0.1 (Seal Amber). Canonical source: `10_PROJECTS/tractum/brand/` in the vault. Pre-flight before shipping visual changes: amber is `#FFB000`, ≤10% of any surface, no gradients/glow/indigo.
 
 ## License
 
-BUSL-1.1 — same as the Claudeway SDK. Source-available; converts to MIT on 2030-10-12. See [LICENSE](LICENSE).
+BUSL-1.1 — same as the Tractum SDK. Source-available; converts to MIT on 2030-10-12. See [LICENSE](LICENSE).
 
 
 <p align="right">

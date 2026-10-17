@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { width:1200px; height:630px; overflow:hidden; background:#0A0A0A; font-family:'JetBrains Mono',monospace; }
+  .frame { position:absolute; inset:0; padding:64px 72px 48px; display:flex; flex-direction:column; align-items:flex-start; }
+  .lockup { height:64px; }
+  h1 { color:#FFFFFF; font-size:50px; font-weight:800; line-height:1.12; letter-spacing:-0.02em; margin-top:56px; max-width:660px; }
+  h1 .accent { color:#FFB000; }
+  .sub { color:#9E9E9E; font-size:19px; line-height:1.55; margin-top:28px; max-width:620px; }
+  .sub strong { color:#FFFFFF; font-weight:500; }
+  .foot { margin-top:auto; align-self:stretch; display:flex; justify-content:space-between; align-items:center; border-top:1px solid #1F1F1F; padding-top:24px; }
+  .cmd { font-size:18px; color:#FFFFFF; }
+  .cmd .dollar { color:#6E6E6E; } .cmd .pkg { color:#FFB000; }
+  .domain { font-size:18px; color:#9E9E9E; letter-spacing:0.08em; }
+  .domain b { color:#FFB000; font-weight:700; }
+  .rule-v { position:absolute; top:0; bottom:0; right:440px; width:1px; background:#1F1F1F; }
+  .bars { position:absolute; right:72px; top:64px; width:220px; height:348px; display:flex; align-items:flex-end; gap:22px; border-bottom:18px solid #FFFFFF; }
+  .bar { width:44px; border-radius:22px; }
+  .q { height:100%; background:#FFB000; }
+  .nq { height:60%; background:#3D3D3D; }
+</style>
+</head>
+<body>
+  <div class="rule-v"></div>
+  <div class="bars">
+    <div class="bar nq"></div><div class="bar q"></div><div class="bar q"></div><div class="bar q"></div><div class="bar nq"></div>
+  </div>
+  <div class="frame">
+    <img class="lockup" src="assets/tractum-lockup.svg">
+    <h1>Verifiable multi-agent<br><span class="accent">consensus</span>.</h1>
+    <p class="sub">Three specialists. One signed answer. Every result lands as a <strong>tamper-evident receipt</strong> anyone can verify — forever.</p>
+    <div class="foot">
+      <span class="cmd"><span class="dollar">$</span> pip install <span class="pkg">tractum</span></span>
+      <span class="domain"><b>tractum</b>.dev</span>
+    </div>
+  </div>
+</body>
+</html>

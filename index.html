@@ -7,23 +7,23 @@
     <link rel="shortcut icon" href="favicon.ico?v=2">
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Claudeway — verifiable agent consensus</title>
-<meta name="description" content="Three agents debate, sign the result with Ed25519, anyone can verify — forever. The coordination layer for agent systems that need verifiable agreement. MIT licensed, runs on your infra, ships as Python SDK + MCP server + Nostr events." />
+<title>Tractum — verifiable agent consensus</title>
+<meta name="description" content="Three agents debate, sign the result with Ed25519, anyone can verify — forever. The coordination layer for agent systems that need verifiable agreement. Runs on your infra, ships as Python SDK + MCP server + Nostr events." />
 <meta name="theme-color" content="#0A0A0A" />
 
 <!-- Open Graph / Twitter -->
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Claudeway — Verifiable multi-agent consensus for Claude" />
+<meta property="og:title" content="Tractum — Verifiable multi-agent consensus" />
 <meta property="og:description" content="Three agents debate, sign the result with Ed25519, anyone can verify — forever. The coordination layer for agent systems that need verifiable agreement." />
-<meta property="og:image" content="https://jordannewell.github.io/claudeway-site/assets/og.png" />
-<meta property="og:url" content="https://jordannewell.github.io/claudeway-site/" />
-<meta property="og:site_name" content="Claudeway" />
+<meta property="og:image" content="https://tractum.dev/assets/og.png" />
+<meta property="og:url" content="https://tractum.dev/" />
+<meta property="og:site_name" content="Tractum" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Claudeway — Verifiable multi-agent consensus for Claude" />
+<meta name="twitter:title" content="Tractum — Verifiable multi-agent consensus" />
 <meta name="twitter:description" content="Three agents debate, sign the result with Ed25519, anyone can verify — forever." />
-<meta name="twitter:image" content="https://jordannewell.github.io/claudeway-site/assets/og.png" />
+<meta name="twitter:image" content="https://tractum.dev/assets/og.png" />
 
-<link rel="canonical" href="https://jordannewell.github.io/claudeway-site/" />
+<link rel="canonical" href="https://tractum.dev/" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,15 +31,15 @@
 <style>
   :root {
     --bg:       #0A0A0A;
-    --surface:  #0F0F0F;
+    --surface:  #101010;
     --surface-2:#141414;
     --border:   #1F1F1F;
     --border-2: #2A2A2A;
     --text:     #FFFFFF;
-    --muted:    #A0A0A0;
+    --muted:    #9E9E9E;
     --muted-2:  #6E6E6E;
-    --primary:  #00FF41;
-    --accent:   #1AFF72;
+    --primary:  #FFB000;
+    --accent:   #FFC94D;
     --r-sm: 4px;
     --r-md: 8px;
     --r-lg: 12px;
@@ -99,7 +99,7 @@
   }
   .brand .n-mark { width: 24px; height: 24px; display: block; }
   .brand .wordmark {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'JetBrains Mono', monospace;
     font-weight: 700;
     font-size: 15px;
     letter-spacing: 0.10em;
@@ -110,21 +110,23 @@
   .nav-links {
     display: flex;
     align-items: center;
-    gap: var(--space-5);
+    gap: var(--space-4);
     list-style: none;
   }
   .nav-links a {
     color: var(--muted);
     font-size: 14px;
     font-weight: 500;
+    white-space: nowrap;
     transition: color 120ms ease;
   }
   .nav-links a:hover { color: var(--text); }
   .nav-cta {
     display: flex;
     align-items: center;
-    gap: var(--space-3);
+    gap: var(--space-2);
   }
+  .nav-cta .btn { white-space: nowrap; }
   .version-chip {
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
@@ -179,11 +181,11 @@
     align-items: center;
   }
   .hero-left h1 {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'JetBrains Mono', monospace;
     font-weight: 700;
-    font-size: 64px;
-    line-height: 1.05;
-    letter-spacing: -0.035em;
+    font-size: 40px;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
     margin-bottom: var(--space-5);
   }
   .hero-left h1 .accent { color: var(--primary); }
@@ -247,7 +249,7 @@
   .hero-receipt .pulse {
     width: 8px; height: 8px; border-radius: 50%;
     background: var(--primary);
-    box-shadow: 0 0 0 4px rgba(0, 255, 65, 0.15);
+    box-shadow: 0 0 0 4px rgba(255, 176, 0, 0.15);
     flex-shrink: 0;
   }
   .hero-receipt .hash { color: var(--accent); }
@@ -355,11 +357,11 @@
     margin-bottom: var(--space-3);
   }
   .section-head h2 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 40px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 30px;
     font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.15;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
     max-width: 720px;
   }
   .section-head p {
@@ -422,7 +424,7 @@
     margin-bottom: var(--space-4);
   }
   .feature h3 {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'JetBrains Mono', monospace;
     font-size: 18px;
     font-weight: 600;
     margin-bottom: var(--space-2);
@@ -502,7 +504,7 @@
     padding: var(--space-6);
   }
   .wire-left h3 {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'JetBrains Mono', monospace;
     font-size: 22px;
     font-weight: 600;
     margin-bottom: var(--space-4);
@@ -558,11 +560,11 @@
     gap: var(--space-6);
   }
   .cta-inner h2 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 36px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 26px;
     font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.2;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
     max-width: 560px;
   }
   .cta-inner h2 .accent { color: var(--primary); }
@@ -630,7 +632,7 @@
     margin-bottom: var(--space-4);
   }
   .use-case h3 {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'JetBrains Mono', monospace;
     font-size: 18px;
     font-weight: 600;
     margin-bottom: var(--space-3);
@@ -731,7 +733,7 @@
     padding: var(--space-6) var(--space-7);
   }
   .diy-counter h3 {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'JetBrains Mono', monospace;
     font-size: 22px;
     font-weight: 600;
     margin-bottom: var(--space-3);
@@ -868,7 +870,7 @@
   }
   .ensemble-card.clau .label { color: var(--primary); }
   .ensemble-card h3 {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'JetBrains Mono', monospace;
     font-size: 20px;
     font-weight: 600;
     margin-bottom: var(--space-5);
@@ -1016,7 +1018,7 @@
   }
   .verifier-result.pass {
     border-color: var(--primary);
-    background: rgba(0, 255, 65, 0.04);
+    background: rgba(255, 176, 0, 0.04);
   }
   .verifier-result.fail {
     border-color: #FF5252;
@@ -1134,7 +1136,7 @@
     text-transform: none;
     letter-spacing: 0;
     margin-top: 2px;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'JetBrains Mono', monospace;
   }
   .arch-layer .layer-desc {
     font-size: 13px;
@@ -1193,7 +1195,7 @@
     margin-bottom: var(--space-4);
   }
   .longevity-card h3 {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'JetBrains Mono', monospace;
     font-size: 17px;
     font-weight: 600;
     margin-bottom: var(--space-3);
@@ -1218,7 +1220,7 @@
   /* ============================ RESPONSIVE ============================ */
   @media (max-width: 900px) {
     section.hero { grid-template-columns: 1fr; padding: var(--space-8) var(--space-5); }
-    .hero-left h1 { font-size: 44px; }
+    .hero-left h1 { font-size: 30px; }
     .features { grid-template-columns: repeat(2, 1fr); }
     .wire { grid-template-columns: 1fr; }
     .cta-inner { grid-template-columns: 1fr; }
@@ -1288,7 +1290,7 @@
   /* Phone-sized: even tighter */
   @media (max-width: 480px) {
     section.hero { padding: var(--space-7) var(--space-4); }
-    .hero-left h1 { font-size: 36px; }
+    .hero-left h1 { font-size: 26px; }
     .section-head h2 { font-size: 24px; }
     .section-head p { font-size: 15px; }
     .nav-inner { padding: var(--space-2) var(--space-4); }
@@ -1311,8 +1313,7 @@
 <nav class="top">
   <div class="nav-inner">
     <a class="brand" href="#">
-      <img src="apple-touch-icon.png" alt="claudeway" style="width:32px;height:32px;border-radius:6px;display:block">
-      <span class="wordmark">CLAUDEWAY<span class="dot">.</span></span>
+      <img src="assets/tractum-lockup.svg" alt="tractum" style="height:26px;width:auto;display:block">
     </a>
     <ul class="nav-links">
       <li><a href="#features">Features</a></li>
@@ -1323,12 +1324,12 @@
       <li><a href="#tradeoffs">Tradeoffs</a></li>
       <li><a href="#security">Security</a></li>
       <li><a href="#longevity">Longevity</a></li>
-      <li><a href="https://jordannewell.github.io/claudeway/">Docs ↗</a></li>
+      <li><a href="https://jordannewell.github.io/tractum/">Docs ↗</a></li>
     </ul>
     <div class="nav-cta">
-      <span class="version-chip">v0.3.2</span>
-      <a class="btn btn-ghost" href="https://github.com/JordanNewell/claudeway">GitHub</a>
-      <a class="btn btn-primary" href="https://jordannewell.github.io/claudeway/quickstart/">Get started →</a>
+      <span class="version-chip">v0.5.0</span>
+      <a class="btn btn-ghost" href="https://github.com/JordanNewell/tractum">GitHub</a>
+      <a class="btn btn-primary" href="https://jordannewell.github.io/tractum/quickstart/">Get started →</a>
     </div>
   </div>
 </nav>
@@ -1336,15 +1337,15 @@
 <!-- ============================ HERO ============================ -->
 <section class="hero">
   <div class="hero-left">
-    <h1>Verifiable multi-agent <span class="accent">consensus</span> for Claude.</h1>
+    <h1>Verifiable multi-agent <span class="accent">consensus</span>.</h1>
     <p class="sub">
       Three specialists. One signed answer. Disagreement surfaced, not averaged away — and every result lands as a tamper-evident receipt any agent, auditor, or future teammate can verify.
     </p>
     <div class="install-chip">
       <span class="dollar">$</span>
       <span class="cmd">pip install</span>
-      <span class="pkg">claudeway</span>
-      <button class="copy-mini" onclick="navigator.clipboard?.writeText('pip install claudeway')">copy</button>
+      <span class="pkg">tractum</span>
+      <button class="copy-mini" onclick="navigator.clipboard?.writeText('pip install tractum')">copy</button>
     </div>
     <div class="hero-disclaimer">
       <span class="x">Not a blockchain.</span>
@@ -1356,13 +1357,13 @@
       <span class="x">Just Ed25519 + a pub/sub relay.</span>
     </div>
     <div class="hero-ctas">
-      <a class="btn btn-primary" href="https://jordannewell.github.io/claudeway/quickstart/">
+      <a class="btn btn-primary" href="https://jordannewell.github.io/tractum/quickstart/">
         Get started — 2 min →
       </a>
-      <a class="btn btn-ghost" href="https://jordannewell.github.io/claudeway/mcp-server/">
+      <a class="btn btn-ghost" href="https://jordannewell.github.io/tractum/mcp-server/">
         Add to Claude Code
       </a>
-      <a class="btn btn-ghost" href="https://jordannewell.github.io/claudeway/">
+      <a class="btn btn-ghost" href="https://jordannewell.github.io/tractum/">
         Read the docs
       </a>
     </div>
@@ -1378,7 +1379,7 @@
       <div class="filename">hello.py</div>
       <button class="copy">copy</button>
     </div>
-<pre><span class="kw">from</span> claudeway <span class="kw">import</span> (
+<pre><span class="kw">from</span> tractum <span class="kw">import</span> (
     AgentConfig, Swarm, SwarmConfig, Task,
 )
 
@@ -1407,7 +1408,7 @@ result = <span class="kw">await</span> swarm.<span class="fn">process</span>(<sp
 <!-- ============================ STRIP ============================ -->
 <div class="strip">
   <div class="strip-inner">
-    <div class="stat"><span class="num green">164</span> tests · 97% on critical-path</div>
+    <div class="stat"><span class="num green">197</span> tests</div>
     <div class="stat"><span class="num">4</span> base deps</div>
     <div class="stat"><span class="num">3</span> transports</div>
     <div class="stat"><span class="num">2</span> signature backends</div>
@@ -1435,7 +1436,7 @@ result = <span class="kw">await</span> swarm.<span class="fn">process</span>(<sp
       </div>
       <h3>Python SDK</h3>
       <p>Swarm, Coordinator, Agent — concurrent by default. Async-first, prompt-caching-friendly. 4 base deps.</p>
-      <span class="tag">pip install claudeway</span>
+      <span class="tag">pip install tractum</span>
     </div>
     <div class="feature">
       <div class="icon">
@@ -1443,7 +1444,7 @@ result = <span class="kw">await</span> swarm.<span class="fn">process</span>(<sp
       </div>
       <h3>MCP server</h3>
       <p>One binary. Any MCP-capable agent — Claude Code, Cursor, Goose — gains <code style="font-family:'JetBrains Mono',monospace;font-size:0.88em;color:var(--accent);">reach_consensus</code> as a tool.</p>
-      <span class="tag">pip install claudeway[mcp]</span>
+      <span class="tag">pip install tractum[mcp]</span>
     </div>
     <div class="feature">
       <div class="icon">
@@ -1451,7 +1452,7 @@ result = <span class="kw">await</span> swarm.<span class="fn">process</span>(<sp
       </div>
       <h3>Coordinator</h3>
       <p>Hierarchical decomposition. Planner agent emits a JSON plan with dependencies; specialists run in parallel where independent.</p>
-      <span class="tag">claudeway.coordinator</span>
+      <span class="tag">tractum.coordinator</span>
     </div>
     <div class="feature">
       <div class="icon">
@@ -1467,7 +1468,7 @@ result = <span class="kw">await</span> swarm.<span class="fn">process</span>(<sp
       </div>
       <h3>Post-quantum ready</h3>
       <p>Same receipt, same canonical hash. Swap Ed25519 for ML-DSA-65 (FIPS 204) at the SignatureBackend ABC — no consensus code changes.</p>
-      <span class="tag">pip install claudeway[pq]</span>
+      <span class="tag">pip install tractum[pq]</span>
     </div>
     <div class="feature">
       <div class="icon">
@@ -1485,19 +1486,19 @@ result = <span class="kw">await</span> swarm.<span class="fn">process</span>(<sp
   <div class="section-head">
     <div class="section-eyebrow">// Built for</div>
     <h2>Any agent system that needs agreement, not just answers.</h2>
-    <p>Claudeway plugs in wherever an agent stack needs a verifiable consensus primitive — as a Python SDK, an MCP tool, a coordinator, or a signed receipt on the wire.</p>
+    <p>Tractum plugs in wherever an agent stack needs a verifiable consensus primitive — as a Python SDK, an MCP tool, a coordinator, or a signed receipt on the wire.</p>
   </div>
 
   <div class="features cols-2">
-    <a class="feature" href="https://jordannewell.github.io/claudeway/adapters/">
+    <a class="feature" href="https://jordannewell.github.io/tractum/adapters/">
       <div class="icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="12" r="3"/><line x1="9" y1="6" x2="15" y2="11"/><line x1="9" y1="18" x2="15" y2="13"/></svg>
       </div>
       <h3>Agent frameworks</h3>
-      <p>Drop signed consensus in as a primitive. Your orchestrator calls Claudeway; your users get a tamper-evident receipt with disagreement surfaced. Lazy-imported adapters keep your core dep-light.</p>
+      <p>Drop signed consensus in as a primitive. Your orchestrator calls Tractum; your users get a tamper-evident receipt with disagreement surfaced. Lazy-imported adapters keep your core dep-light.</p>
       <span class="tag">adapters →</span>
     </a>
-    <a class="feature" href="https://jordannewell.github.io/claudeway/mcp-server/">
+    <a class="feature" href="https://jordannewell.github.io/tractum/mcp-server/">
       <div class="icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v6m0 8v6M2 12h6m8 0h6"/><circle cx="12" cy="12" r="3"/></svg>
       </div>
@@ -1505,7 +1506,7 @@ result = <span class="kw">await</span> swarm.<span class="fn">process</span>(<sp
       <p>Any MCP-capable client — Claude Code, Cursor, Goose, your own — gains <code style="font-family:'JetBrains Mono',monospace;font-size:0.88em;color:var(--accent);">reach_consensus</code> and <code style="font-family:'JetBrains Mono',monospace;font-size:0.88em;color:var(--accent);">verify_consensus</code> as tools. One binary. Zero framework to learn.</p>
       <span class="tag">MCP server →</span>
     </a>
-    <a class="feature" href="https://jordannewell.github.io/claudeway/concepts/">
+    <a class="feature" href="https://jordannewell.github.io/tractum/concepts/">
       <div class="icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
       </div>
@@ -1513,7 +1514,7 @@ result = <span class="kw">await</span> swarm.<span class="fn">process</span>(<sp
       <p>Replace "ask once and trust it" with "ask three specialists, sign the result." Every decision becomes a tamper-evident artifact — auditable, replayable, and impossible to silently rewrite.</p>
       <span class="tag">concepts →</span>
     </a>
-    <a class="feature" href="https://jordannewell.github.io/claudeway/THREAT-MODEL/">
+    <a class="feature" href="https://jordannewell.github.io/tractum/THREAT-MODEL/">
       <div class="icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
       </div>
@@ -1529,7 +1530,7 @@ result = <span class="kw">await</span> swarm.<span class="fn">process</span>(<sp
   <div class="section-head">
     <div class="section-eyebrow">// When to use it</div>
     <h2>For decisions worth defending.</h2>
-    <p>Claudeway isn't for every Claude call. It's for the calls you might have to justify later — to an auditor, a co-founder, a regulator, or your future self. Three real patterns from the examples.</p>
+    <p>Tractum isn't for every agent call. It's for the calls you might have to justify later — to an auditor, a co-founder, a regulator, or your future self. Three real patterns from the examples.</p>
   </div>
 
   <div class="use-cases">
@@ -1544,7 +1545,7 @@ result = <span class="kw">await</span> swarm.<span class="fn">process</span>(<sp
     <span class="kw">return</span>
 print(<span class="str">"Disagreement flagged. Debate..."</span>)
 r2 = <span class="kw">await</span> <span class="fn">run_round</span>(<span class="str">"Round 2"</span>, <span class="fn">build_swarm</span>(<span class="fn">Debate</span>()))</div>
-      <div class="source-link">→ <a href="https://github.com/JordanNewell/claudeway/blob/main/examples/consensus_demo.py">examples/consensus_demo.py</a></div>
+      <div class="source-link">→ <a href="https://github.com/JordanNewell/tractum/blob/main/examples/consensus_demo.py">examples/consensus_demo.py</a></div>
     </div>
 
     <div class="use-case">
@@ -1552,15 +1553,15 @@ r2 = <span class="kw">await</span> <span class="fn">run_round</span>(<span class
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
       </div>
       <h3>Compliance &amp; audit trails</h3>
-      <p>Every consensus is appended to an RFC 6962 Merkle log; the log root anchors to Nostr on a cadence. A third party can verify a receipt was in the log — and detect tampering — without trusting Claudeway.</p>
-      <div class="code-mini">log = <span class="fn">TransparencyLog</span>(name=<span class="str">"claudeway-canonical"</span>)
+      <p>Every consensus is appended to an RFC 6962 Merkle log; the log root anchors to Nostr on a cadence. A third party can verify a receipt was in the log — and detect tampering — without trusting Tractum.</p>
+      <div class="code-mini">log = <span class="fn">TransparencyLog</span>(name=<span class="str">"tractum-canonical"</span>)
 <span class="kw">for</span> rc <span class="kw">in</span> receipts:
     log.<span class="fn">append</span>(rc)
 proof = log.<span class="fn">inclusion_proof</span>(1)
 ok = <span class="fn">TransparencyLog.verify_inclusion</span>(
     target, proof, log.root
 )</div>
-      <div class="source-link">→ <a href="https://github.com/JordanNewell/claudeway/blob/main/examples/transparency_demo.py">examples/transparency_demo.py</a></div>
+      <div class="source-link">→ <a href="https://github.com/JordanNewell/tractum/blob/main/examples/transparency_demo.py">examples/transparency_demo.py</a></div>
     </div>
 
     <div class="use-case">
@@ -1568,13 +1569,13 @@ ok = <span class="fn">TransparencyLog.verify_inclusion</span>(
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
       </div>
       <h3>Your existing agent stack</h3>
-      <p>Already running LangGraph, CrewAI, MAF, or your own orchestrator? Claudeway drops in as one node — no rip-and-replace, no rewrite. Signed consensus as a graph primitive.</p>
+      <p>Already running LangGraph, CrewAI, MAF, or your own orchestrator? Tractum drops in as one node — no rip-and-replace, no rewrite. Signed consensus as a graph primitive.</p>
       <div class="code-mini">consensus = <span class="fn">make_consensus_node</span>(<span class="fn">build_swarm</span>())
 builder = <span class="fn">StateGraph</span>(MyState)
 builder.<span class="fn">add_node</span>(<span class="str">"research"</span>, research_node)
 builder.<span class="fn">add_node</span>(<span class="str">"consensus"</span>, consensus)
 builder.<span class="fn">add_edge</span>(<span class="str">"research"</span>, <span class="str">"consensus"</span>)</div>
-      <div class="source-link">→ <a href="https://github.com/JordanNewell/claudeway/blob/main/examples/langgraph_adapter_demo.py">examples/langgraph_adapter_demo.py</a></div>
+      <div class="source-link">→ <a href="https://github.com/JordanNewell/tractum/blob/main/examples/langgraph_adapter_demo.py">examples/langgraph_adapter_demo.py</a></div>
     </div>
   </div>
 </section>
@@ -1593,7 +1594,7 @@ builder.<span class="fn">add_edge</span>(<span class="str">"research"</span>, <s
       <div class="arch-layer top">
         <div class="layer-name">
           <span>Transports</span>
-          <strong>claudeway.transports</strong>
+          <strong>tractum.transports</strong>
         </div>
         <div class="layer-desc">
           One signed receipt, three wire formats. <strong>Change transports without re-signing.</strong>
@@ -1608,7 +1609,7 @@ builder.<span class="fn">add_edge</span>(<span class="str">"research"</span>, <s
       <div class="arch-layer moat">
         <div class="layer-name">
           <span>Signing · the moat</span>
-          <strong>claudeway.signing</strong>
+          <strong>tractum.signing</strong>
         </div>
         <div class="layer-desc">
           <strong>ConsensusReceipt</strong> — canonical, signed payload. SignatureBackend ABC isolates the crypto; consensus code is untouched either way.
@@ -1623,7 +1624,7 @@ builder.<span class="fn">add_edge</span>(<span class="str">"research"</span>, <s
       <div class="arch-layer">
         <div class="layer-name">
           <span>Consensus</span>
-          <strong>claudeway.consensus</strong>
+          <strong>tractum.consensus</strong>
         </div>
         <div class="layer-desc">
           Pluggable aggregation. <strong>WeightedVote</strong> for cheap default. <strong>Debate</strong> for hard questions — agents see peers and revise.
@@ -1638,7 +1639,7 @@ builder.<span class="fn">add_edge</span>(<span class="str">"research"</span>, <s
       <div class="arch-layer">
         <div class="layer-name">
           <span>Core</span>
-          <strong>claudeway.swarm / coordinator</strong>
+          <strong>tractum.swarm / coordinator</strong>
         </div>
         <div class="layer-desc">
           Concurrent (asyncio.gather, not serial). Agent calls in parallel; tools/MCP lazy-imported.
@@ -1663,7 +1664,7 @@ builder.<span class="fn">add_edge</span>(<span class="str">"research"</span>, <s
   <div class="section-head">
     <div class="section-eyebrow">// The real differentiator</div>
     <h2>Not just an ensemble.</h2>
-    <p>Ensembles average N model calls into a single confident answer. Claudeway records the disagreement, signs it, and ships the trace alongside the verdict.</p>
+    <p>Ensembles average N model calls into a single confident answer. Tractum records the disagreement, signs it, and ships the trace alongside the verdict.</p>
   </div>
 
   <div class="ensemble-grid">
@@ -1700,7 +1701,7 @@ builder.<span class="fn">add_edge</span>(<span class="str">"research"</span>, <s
     </div>
 
     <div class="ensemble-card clau">
-      <div class="label">// Claudeway</div>
+      <div class="label">// Tractum</div>
       <h3>Signed debate, surfaced.</h3>
 
       <div class="flow-step">
@@ -1738,13 +1739,13 @@ builder.<span class="fn">add_edge</span>(<span class="str">"research"</span>, <s
   <div class="section-head">
     <div class="section-eyebrow">// Live on the wire</div>
     <h2>Not a screenshot. The actual signed artifact.</h2>
-    <p>Three Claudeway agents ran a real Debate consensus. The result was signed with Ed25519, wrapped as a NIP-78 Nostr event, and published to four public relays. Verify the signature yourself.</p>
+    <p>Three Tractum agents ran a real Debate consensus. The result was signed with Ed25519, wrapped as a NIP-78 Nostr event, and published to four public relays. Verify the signature yourself.</p>
   </div>
 
   <div class="wire">
     <div class="wire-left">
       <h3>The receipt</h3>
-      <p>Kind 30078 (NIP-78 addressable). BIP-340 Schnorr signature over sha256 of the NIP-01 serialization. Anyone with the event JSON can verify — no Claudeway runtime required.</p>
+      <p>Kind 30078 (NIP-78 addressable). BIP-340 Schnorr signature over sha256 of the NIP-01 serialization. Anyone with the event JSON can verify — no Tractum runtime required.</p>
       <p>Open in any Nostr-capable client — Damus, Snort, Primal, or your terminal. Or verify it right here in your browser:</p>
       <div class="verify-row">
         <span class="label">CLI equivalent:</span>
@@ -1814,7 +1815,7 @@ builder.<span class="fn">add_edge</span>(<span class="str">"research"</span>, <s
   <div class="section-head">
     <div class="section-eyebrow">// Honest tradeoffs</div>
     <h2>What this costs — and when to skip it.</h2>
-    <p>Claudeway isn't free. The benchmark uses <strong style="color:var(--text);">36&times; the tokens</strong> of a single Claude call and runs <strong style="color:var(--text);">4&times; slower</strong> (29.8s vs 7.5s, same model).</p>
+    <p>Tractum isn't free. The benchmark uses <strong style="color:var(--text);">36&times; the tokens</strong> of a single Claude call and runs <strong style="color:var(--text);">4&times; slower</strong> (29.8s vs 7.5s, same model).</p>
     <p style="margin-top: 16px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--muted); background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; line-height: 1.8;">
       <span style="color: var(--muted-2);">// rough cost per consensus call</span><br>
       <span style="color: var(--primary);">cheap path</span> &nbsp;3 agents · WeightedVote · Haiku · 256 tok &nbsp;→&nbsp; <span style="color: var(--text);">~$0.01</span><br>
@@ -1832,7 +1833,7 @@ builder.<span class="fn">add_edge</span>(<span class="str">"research"</span>, <s
         <li>A future auditor, regulator, or teammate will ask <strong>"why did the AI say X?"</strong></li>
         <li>The decision is high-stakes, contested, or legally meaningful.</li>
         <li>You need disagreement <strong>surfaced</strong> — not averaged into a hedge.</li>
-        <li>You need to <strong>self-host</strong> — the only outbound call is to Anthropic. No Claudeway backend, no telemetry, no shared state.</li>
+        <li>You need to <strong>self-host</strong> — the only outbound call is to Anthropic. No Tractum backend, no telemetry, no shared state.</li>
       </ul>
     </div>
     <div class="tradeoff-col skip">
@@ -1854,7 +1855,7 @@ builder.<span class="fn">add_edge</span>(<span class="str">"research"</span>, <s
       <li><strong>Swappable signature backends</strong>Ed25519 today, ML-DSA-65 post-quantum tomorrow. Same receipt, same hash — one kwarg swap.</li>
       <li><strong>Three transports</strong>One signed receipt renders as JSON, a W3C Verifiable Credential, or a Nostr NIP-78 event.</li>
       <li><strong>RFC 6962 transparency log</strong>Append-only, Merkle-rooted, anchored to Nostr on a cadence.</li>
-      <li><strong>17 adversarial tests</strong>Across 7 attack classes — failure modes you'd otherwise find in production.</li>
+      <li><strong>25 adversarial tests</strong>Across 7 attack classes — failure modes you'd otherwise find in production.</li>
       <li><strong>Four framework adapters</strong>LangGraph, CrewAI, MAF, Nostr/Buzz — lazy imports, opt-in extras.</li>
     </ul>
   </div>
@@ -1865,14 +1866,14 @@ builder.<span class="fn">add_edge</span>(<span class="str">"research"</span>, <s
   <div class="section-head">
     <div class="section-eyebrow">// Security</div>
     <h2>Every claim here is verifiable in five minutes.</h2>
-    <p>No third-party audit yet — Claudeway is brand new. Until auditors catch up, here's what you can check yourself, and what's still on you.</p>
+    <p>No third-party audit yet — Tractum is pre-1.0. Until auditors catch up, here's what you can check yourself, and what's still on you.</p>
   </div>
 
   <div class="security-grid">
     <div class="security-col defends">
       <h3>What's defended</h3>
       <ul>
-        <li><strong>17 adversarial tests</strong> across 7 attack classes — signature, payload, public key, hash tampering; replay; task substitution; single-key compromise; swarm poisoning; canonical-JSON equivocation; Nostr transport tampering.</li>
+        <li><strong>25 adversarial tests</strong> across 7 attack classes — signature, payload, public key, hash tampering; replay; task substitution; single-key compromise; swarm poisoning; canonical-JSON equivocation; Nostr transport tampering.</li>
         <li><strong>Receipt forgery.</strong> Tamper any of the four signed surfaces — even one hex nibble — and verification breaks.</li>
         <li><strong>Task substitution.</strong> <code>task_id</code> and <code>swarm</code> are inside the signed payload. A receipt from task-A will not verify as task-B's result.</li>
         <li><strong>Swarm poisoning visibility.</strong> When N-1 of N agents lie, the disagreement is recorded verbatim in the signed payload. Poisoning is visible, not laundered.</li>
@@ -1882,7 +1883,7 @@ builder.<span class="fn">add_edge</span>(<span class="str">"research"</span>, <s
     <div class="security-col doesnt">
       <h3>What isn't (yet)</h3>
       <ul>
-        <li><strong>Agent identity.</strong> Three "specialists" could be one process in three hats. Claudeway signs the consensus, not the agents.</li>
+        <li><strong>Agent identity.</strong> Three "specialists" could be one process in three hats. Tractum signs the consensus, not the agents.</li>
         <li><strong>Agent correctness.</strong> Confident lies are recorded as confidently as confident truths. Verification proves the receipt is intact — not that the answer was right.</li>
         <li><strong>Signing-key rotation.</strong> No revocation, no forward secrecy (yet).</li>
         <li><strong>Post-quantum signatures.</strong> Ed25519 and BIP-340 are classical. The ML-DSA-65 backend ships for forward-looking use; whether to switch is yours to decide.</li>
@@ -1892,8 +1893,8 @@ builder.<span class="fn">add_edge</span>(<span class="str">"research"</span>, <s
   </div>
 
   <div class="security-cta">
-    <a class="btn btn-ghost" href="https://jordannewell.github.io/claudeway/THREAT-MODEL/">Read the threat model →</a>
-    <a class="btn btn-ghost" href="https://github.com/JordanNewell/claudeway/blob/main/tests/test_adversarial.py">Read the adversarial tests →</a>
+    <a class="btn btn-ghost" href="https://jordannewell.github.io/tractum/THREAT-MODEL/">Read the threat model →</a>
+    <a class="btn btn-ghost" href="https://github.com/JordanNewell/tractum/blob/main/tests/test_adversarial.py">Read the adversarial tests →</a>
   </div>
 </section>
 
@@ -1901,8 +1902,8 @@ builder.<span class="fn">add_edge</span>(<span class="str">"research"</span>, <s
 <section class="block" id="longevity">
   <div class="section-head">
     <div class="section-eyebrow">// Longevity &amp; lock-in</div>
-    <h2>If Claudeway disappears tomorrow, your receipts still verify.</h2>
-    <p>The signed artifact is self-contained. Verification doesn't need Claudeway installed, doesn't need a server, doesn't need me. The canonical payload is documented; the cryptography is standard.</p>
+    <h2>If Tractum disappears tomorrow, your receipts still verify.</h2>
+    <p>The signed artifact is self-contained. Verification doesn't need Tractum installed, doesn't need a server, doesn't need me. The canonical payload is documented; the cryptography is standard.</p>
   </div>
 
   <div class="longevity-grid">
@@ -1911,7 +1912,7 @@ builder.<span class="fn">add_edge</span>(<span class="str">"research"</span>, <s
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
       </div>
       <h3>No lock-in.</h3>
-      <p>Receipts are <strong>plain Ed25519 signatures over a canonical JSON payload</strong>. Verify with <code style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent);background:var(--bg);border:1px solid var(--border);padding:1px 5px;border-radius:3px;">nak</code>, OpenSSL, or a 20-line Python script. No Claudeway runtime required.</p>
+      <p>Receipts are <strong>plain Ed25519 signatures over a canonical JSON payload</strong>. Verify with <code style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent);background:var(--bg);border:1px solid var(--border);padding:1px 5px;border-radius:3px;">nak</code>, OpenSSL, or a 20-line Python script. No Tractum runtime required.</p>
       <div class="proof">echo $payload | nak verify</div>
     </div>
 
@@ -1919,9 +1920,9 @@ builder.<span class="fn">add_edge</span>(<span class="str">"research"</span>, <s
       <div class="icon">
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
       </div>
-      <h3>MIT, forever.</h3>
-      <p>The SDK is <strong>MIT-licensed and will stay MIT</strong>. No BSL rug, no SSPL switch, no "Open Core" carve-out. If a hosted tier ships later, the SDK stays MIT — the SDK is the receipt format, not a sales funnel.</p>
-      <div class="proof">LICENSE: MIT · Copyright (c) 2026 Jordan Newell</div>
+      <h3>Open receipt, honest license.</h3>
+      <p>The SDK is <strong>BUSL-1.1</strong> — source-available, free to use and verify. The longevity promise doesn't ride on the license: <strong>receipts are plain signatures over a documented canonical JSON payload</strong>. Verification needs standard crypto, not our permission.</p>
+      <div class="proof">LICENSE: BUSL-1.1 · Licensor: Jordan Newell</div>
     </div>
 
     <div class="longevity-card">
@@ -1929,8 +1930,8 @@ builder.<span class="fn">add_edge</span>(<span class="str">"research"</span>, <s
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
       </div>
       <h3>Pre-1.0 honesty.</h3>
-      <p>Currently <strong>v0.3.x</strong>. Public API may shift. <strong>1.0 ships when the signature surface is locked</strong> — at that point, canonical payload, receipt shape, and verifier interface freeze. Until then, semver-minor breakage is fair.</p>
-      <div class="proof">v0.3.2 · 5 days old · 40 commits</div>
+      <p>Currently <strong>v0.5.0</strong>. Public API may shift. <strong>1.0 ships when the signature surface is locked</strong> — at that point, canonical payload, receipt shape, and verifier interface freeze. Until then, semver-minor breakage is fair.</p>
+      <div class="proof">v0.5.0 · Oct 2026 · 84 commits</div>
     </div>
   </div>
 </section>
@@ -1940,34 +1941,11 @@ builder.<span class="fn">add_edge</span>(<span class="str">"research"</span>, <s
   <div class="cta-inner">
     <h2>Ship a signed consensus receipt in <span class="accent">under two minutes</span>.</h2>
     <div class="cta-buttons">
-      <a class="btn btn-primary" href="https://jordannewell.github.io/claudeway/quickstart/">Get started →</a>
-      <a class="btn btn-ghost" href="https://jordannewell.github.io/claudeway/">Read the docs</a>
+      <a class="btn btn-primary" href="https://jordannewell.github.io/tractum/quickstart/">Get started →</a>
+      <a class="btn btn-ghost" href="https://jordannewell.github.io/tractum/">Read the docs</a>
     </div>
   </div>
 </section>
-
-<!-- ============================ FOOTER ============================ -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <svg class="n-mark" viewBox="0 0 990 755" xmlns="http://www.w3.org/2000/svg" aria-label="NEWELL N mark">
-        <rect width="100%" height="100%" fill="#0A0A0A"/>
-        <g>
-          <path d="M 90.0 55.0 L 89.0 55.0 L 90.0 56.0 L 90.0 755.0 L 200.0 755.0 L 200.0 166.0 L 90.0 56.0 Z" fill="#FFFFFF"/>
-          <path d="M 789.0 755.0 L 790.0 755.0 L 790.0 644.0 L 201.0 55.0 L 200.0 55.0 L 200.0 166.0 Z" fill="#FFFFFF"/>
-          <path d="M 900.0 55.0 L 790.0 55.0 L 790.0 644.0 L 900.0 754.0 L 900.0 755.0 L 901.0 755.0 L 900.0 754.0 Z" fill="#FFFFFF"/>
-        </g>
-      </svg>
-      <span class="text">A NEWELL project · MIT</span>
-    </div>
-    <div class="footer-meta">
-      Maintained by Jordan Newell
-      <a href="https://github.com/JordanNewell/claudeway">GitHub</a>
-      <a href="https://pypi.org/project/claudeway/">PyPI</a>
-      <a href="https://jordannewell.github.io/claudeway/">Docs</a>
-    </div>
-  </div>
-</footer>
 
 <!-- @noble/curves for client-side BIP-340 Schnorr verification -->
 <script type="module">
@@ -2000,7 +1978,7 @@ builder.<span class="fn">add_edge</span>(<span class="str">"research"</span>, <s
   }
 
   // Canonical JSON for the inner ConsensusReceipt payload hash
-  // (matches claudeway.signing.canonical_json: sorted keys, no whitespace)
+  // (matches tractum.signing.canonical_json: sorted keys, no whitespace)
   function canonicalJsonStringify(value) {
     if (value === null) return 'null';
     if (typeof value !== 'object') return JSON.stringify(value);
@@ -2019,7 +1997,7 @@ builder.<span class="fn">add_edge</span>(<span class="str">"research"</span>, <s
   const resultEl = document.getElementById('verifier-result');
   const fieldsEl = document.getElementById('verifier-fields');
 
-  // The real published Claudeway consensus event (kind 30078, BIP-340 signed)
+  // The real published Tractum consensus event (kind 30078, BIP-340 signed)
   const REAL_EVENT_ID = '583be95c1d4febd10e312746046c9194e6c66ebfe1d99cbb04dfd408153a42e9';
   const RELAYS = ['wss://nos.lol', 'wss://relay.primal.net', 'wss://nostr.mom', 'wss://offchain.pub'];
 
@@ -2044,7 +2022,7 @@ builder.<span class="fn">add_edge</span>(<span class="str">"research"</span>, <s
         sockets.push(socket);
 
         socket.onopen = () => {
-          const req = ['REQ', 'claudeway-verify-' + Date.now(), { ids: [REAL_EVENT_ID] }];
+          const req = ['REQ', 'tractum-verify-' + Date.now(), { ids: [REAL_EVENT_ID] }];
           try { socket.send(JSON.stringify(req)); } catch {}
         };
 
@@ -2379,7 +2357,7 @@ builder.<span class="fn">add_edge</span>(<span class="str">"research"</span>, <s
   <div class="nsf-inner">
     <div class="nsf-brand">
       <svg class="nsf-mark" viewBox="0 0 48 48" width="28" height="28" aria-hidden="true">
-        <rect x="2" y="2" width="44" height="44" rx="6" fill="#0A0A0A" stroke="#00FF41" stroke-width="1.5"/>
+        <rect x="2" y="2" width="44" height="44" rx="6" fill="#0A0A0A" stroke="#FFB000" stroke-width="1.5"/>
         <rect x="6" y="6" width="36" height="36" rx="3" fill="#0A0A0A" stroke="#1F1F1F" stroke-width="0.5"/>
         <path d="M 14 14 L 14 34 L 17 34 L 17 19 L 14 16 Z" fill="#FFFFFF"/>
         <path d="M 31 34 L 31 31 L 17 14 L 14 14 L 14 17 L 28 34 Z" fill="#FFFFFF"/>
@@ -2388,12 +2366,12 @@ builder.<span class="fn">add_edge</span>(<span class="str">"research"</span>, <s
       <div class="nsf-brand-text">
         <a href="https://jordannewell.com" class="nsf-brand-link">A NEWELL project</a>
         <span class="nsf-sep">·</span>
-        <span class="nsf-product">claudeway</span>
+        <span class="nsf-product">tractum</span>
       </div>
     </div>
-    <div class="nsf-row nsf-links"><a href="https://github.com/JordanNewell/claudeway">github</a> <span class="nsf-sep">·</span> <a href="https://pypi.org/project/claudeway/">pypi</a> <span class="nsf-sep">·</span> <a href="https://github.com/JordanNewell/claudeway#readme">readme</a> <span class="nsf-sep">·</span> <a href="https://github.com/JordanNewell/claudeway/blob/main/CHANGELOG.md">changelog</a> <span class="nsf-sep">·</span> <a href="https://github.com/JordanNewell/claudeway/security/policy">security</a></div>
-    <div class="nsf-row nsf-meta"><span>MIT</span> <span class="nsf-sep">·</span> <span>v0.3.x</span> <span class="nsf-sep">·</span> <span>Python 3.10+</span> <span class="nsf-sep">·</span> <span>Ed25519 · NIP-78 · Nostr</span></div>
-    <div class="nsf-row nsf-legal">Claudeway is a trademark of Jordan Newell · Pre-release software — verify before production</div>
+    <div class="nsf-row nsf-links"><a href="https://github.com/JordanNewell/tractum">github</a> <span class="nsf-sep">·</span> <a href="https://pypi.org/project/tractum/">pypi</a> <span class="nsf-sep">·</span> <a href="https://github.com/JordanNewell/tractum#readme">readme</a> <span class="nsf-sep">·</span> <a href="https://github.com/JordanNewell/tractum/blob/main/CHANGELOG.md">changelog</a> <span class="nsf-sep">·</span> <a href="https://github.com/JordanNewell/tractum/security/policy">security</a></div>
+    <div class="nsf-row nsf-meta"><span>BUSL-1.1</span> <span class="nsf-sep">·</span> <span>v0.5.0</span> <span class="nsf-sep">·</span> <span>Python 3.10+</span> <span class="nsf-sep">·</span> <span>Ed25519 · NIP-78 · Nostr</span></div>
+    <div class="nsf-row nsf-legal">Tractum is a trademark of Jordan Newell · Pre-release software — verify before production</div>
     <div class="nsf-row nsf-social">
       <a href="https://github.com/JordanNewell" aria-label="GitHub" title="GitHub">github</a>
       <span class="nsf-sep">·</span>
@@ -2410,18 +2388,18 @@ builder.<span class="fn">add_edge</span>(<span class="str">"research"</span>, <s
 .nsf-mark { flex-shrink: 0; display: block; }
 .nsf-brand-text { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .nsf-brand-link { color: #FFFFFF; text-decoration: none; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; font-size: 11px; transition: color 0.15s ease; }
-.nsf-brand-link:hover { color: #00FF41; }
-.nsf-product { color: #00FF41; font-weight: 500; }
+.nsf-brand-link:hover { color: #FFB000; }
+.nsf-product { color: #FFB000; font-weight: 500; }
 .nsf-sep { color: #1F1F1F; }
 .nsf-row { padding-left: 40px; }
 .nsf-links a, .nsf-meta span, .nsf-legal { color: #A0A0A0; }
 .nsf-links a { text-decoration: none; transition: color 0.15s ease; }
-.nsf-links a:hover { color: #00FF41; }
+.nsf-links a:hover { color: #FFB000; }
 .nsf-meta span { color: #707070; }
 .nsf-legal { color: #707070; font-size: 11px; line-height: 1.5; }
 .nsf-social { padding-left: 40px; margin-top: 4px; }
 .nsf-social a { color: #A0A0A0; text-decoration: none; transition: color 0.15s ease; }
-.nsf-social a:hover { color: #00FF41; }
+.nsf-social a:hover { color: #FFB000; }
 @media (max-width: 600px) {
   .newell-site-footer { padding: 16px; font-size: 11px; }
   .nsf-row, .nsf-social { padding-left: 0; }
