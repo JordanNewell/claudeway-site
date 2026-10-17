@@ -1,0 +1,14 @@
+{
+  "name": "Tractum",
+  "short_name": "Tractum",
+  "description": "Verifiable multi-agent consensus for Claude.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#0A0A0A",
+  "theme_color": "#0A0A0A",
+  "icons": [
+    { "src": "/assets/tractum-mark-256.png", "sizes": "256x256", "type": "image/png" },
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "/favicon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

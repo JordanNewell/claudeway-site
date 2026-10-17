@@ -24,6 +24,66 @@
 <meta name="twitter:image" content="https://tractum.dev/assets/og.png" />
 
 <link rel="canonical" href="https://tractum.dev/" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+<meta name="author" content="Jordan Newell" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="TRACTUM — verifiable multi-agent consensus. Three agents debate, sign the result with Ed25519, anyone can verify." />
+<meta name="twitter:site" content="@tractumdev" />
+<meta name="twitter:creator" content="@tractumdev" />
+<meta name="twitter:image:alt" content="TRACTUM — verifiable multi-agent consensus" />
+<link rel="manifest" href="site.webmanifest" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Tractum",
+      "alternateName": "tractum (formerly claudeway)",
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "Multi-agent coordination / AI agent infrastructure",
+      "operatingSystem": "Cross-platform (Python 3.10+)",
+      "url": "https://tractum.dev/",
+      "description": "Verifiable multi-agent consensus for Claude. Multiple agents independently answer a task, a k-of-n quorum signs a tamper-evident consensus receipt (Ed25519 + ML-DSA-65), and anyone can verify the agreement forever — including the disagreement score. Ships as a Python SDK, an MCP server, and Nostr transparency events on RFC 6962 Merkle logs.",
+      "featureList": [
+        "k-of-n quorum consensus receipts signed with Ed25519 and ML-DSA-65 post-quantum signatures",
+        "Cryptographically verifiable agreement with surfaced disagreement scores",
+        "RFC 6962 Merkle transparency log with Nostr anchoring",
+        "Python SDK (pip install tractum) and MCP server for Claude Code / Claude Desktop",
+        "Multi-provider: works with Anthropic, OpenAI, Google, Ollama and local models",
+        "Runs on your own infrastructure — BYOK, no hosted control plane required"
+      ],
+      "softwareRequirements": "Python 3.10+",
+      "codeRepository": "https://github.com/JordanNewell/tractum",
+      "docsUrl": "https://jordannewell.github.io/tractum/",
+      "license": "https://github.com/JordanNewell/tractum/blob/main/LICENSE",
+      "author": { "@id": "https://tractum.dev/#jordan" },
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "availability": "https://schema.org/InStock" },
+      "keywords": "multi-agent consensus, AI agent verification, agent orchestration, Ed25519, post-quantum signatures, ML-DSA, MCP server, Claude agents, signed receipts, transparency log, Nostr, RFC 6962, k-of-n quorum, agent framework"
+    },
+    {
+      "@type": "WebSite",
+      "name": "Tractum",
+      "url": "https://tractum.dev/",
+      "publisher": { "@id": "https://tractum.dev/#jordan" },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://tractum.dev/#jordan",
+      "name": "Jordan Newell",
+      "url": "https://jordannewell.com",
+      "sameAs": [
+        "https://github.com/JordanNewell",
+        "https://x.com/tractumdev"
+      ]
+    }
+  ]
+}
+</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

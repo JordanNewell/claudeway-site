@@ -1,0 +1,31 @@
+# Tractum
+
+> Verifiable multi-agent consensus for Claude. Multiple AI agents independently answer a task, a k-of-n quorum signs a tamper-evident receipt, and anyone can verify the agreement forever — including how much the agents disagreed.
+
+Tractum (formerly claudeway) is a Python SDK + MCP server that adds a cryptographic agreement layer on top of any agent framework. Agents answer independently; a k-of-n quorum of signed statements (Ed25519, with ML-DSA-65 post-quantum co-signatures) is compiled into a consensus receipt bound to .curt evidence. Receipts append to an RFC 6962 Merkle transparency log anchored to Nostr, so agreement is replayable, auditable, and impossible to silently rewrite.
+
+## Why it exists
+
+Every agent framework can run several Claude instances in parallel. None ship a signed consensus receipt. LangGraph owns orchestration but coordination is DIY wiring; CrewAI optimizes DX but coordination is shallow (+48% token cost); Goose and Buzz are single-agent or chat-room shaped; the Anthropic SDK and MCP marketplaces distribute tools but define no agreement primitive. Tractum fills exactly that gap.
+
+## Use it three ways
+
+- Python SDK: `pip install tractum` — wrap any provider call in a Swarm of specialists, get back `result` + `agreement` + a signed receipt.
+- MCP server: `pip install tractum[mcp]` — gives Claude Code / Claude Desktop `reach_consensus` and `verify_consensus` tools. Keyless mode works out of the box.
+- Coordinator: hierarchical decomposition — a lead agent splits the task, specialists answer, quorum signs.
+
+## Facts
+
+- Package: `tractum` on PyPI (https://pypi.org/project/tractum/), v0.5.0, Python 3.10+
+- Source: https://github.com/JordanNewell/tractum (BUSL-1.1)
+- Docs: https://jordannewell.github.io/tractum/
+- Signatures: Ed25519 (default) + ML-DSA-65 post-quantum co-signature
+- Wire format: backward-compatible `claudeway.consensus.v1/v2` payload types
+- Runs on your infrastructure, BYOK — works with Anthropic, OpenAI, Google, Ollama, local models
+- Author: Jordan Newell (https://jordannewell.com), X: @tractumdev
+
+## Not this
+
+- Not an ensemble/average: the disagreement score is surfaced, not averaged away.
+- Not a blockchain: append-only transparency logs, no tokens, no consensus-by-proof-of-work.
+- Not hosted SaaS (yet): no billing, no multi-tenancy — deferred until paying demand exists.
